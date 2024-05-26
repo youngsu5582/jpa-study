@@ -18,5 +18,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     @Modifying
     @Query("delete from Reservation where member=:member")
     void deleteByMemberWithQuery(Member member);
+
+    boolean existsByReservationName(String reservationName);
 }
 

@@ -24,6 +24,10 @@ public class Reservation {
         this.member = member;
         this.reservationName = reservationName;
     }
+    public void changeReservationName(final String newReservationName) {
+        this.reservationName = newReservationName;
+    }
+
     @PreRemove
     private void remove() {
         this.isRemoved = true;
