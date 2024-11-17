@@ -1,8 +1,6 @@
 package org.example.jpatest.util;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 public class FileScanner {
     private static final String SQL_LOG_FILE = "target/sql.log";
@@ -18,5 +16,16 @@ public class FileScanner {
             e.printStackTrace();
         }
         return content.toString();
+    }
+    public static void clearLog() {
+        try {
+            final File logFile = new File(SQL_LOG_FILE);
+            if (logFile.exists()) {
+                logFile.delete();
+            }
+            new PrintWriter(SQL_LOG_FILE).close();
+        } catch (final IOException e) {
+            e.printStackTrace();
+        }
     }
 }
