@@ -1,9 +1,6 @@
 package org.example.jpatest.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,13 +9,26 @@ import lombok.NoArgsConstructor;
 @Table
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@EntityListeners(MemberAuditListener.class)
 public class Member {
     @Id
     @GeneratedValue
     private Long id;
-    String name;
+    private String name;
 
     public Member(final String name) {
         this.name = name;
+    }
+
+    public void setName(final String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
