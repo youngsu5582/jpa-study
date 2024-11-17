@@ -13,11 +13,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ClearFile
 @SpringBootTest
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class FetchLoadingTest {
 
     @Autowired
@@ -54,14 +56,14 @@ class FetchLoadingTest {
 
         final String sqlLog = readSqlLog();
         assertThat(sqlLog).contains("""
-                        select
-                                r1_0.id,
-                                r1_0.member_id,
-                                r1_0.reservation_name\s
+                            select
+                                lr1_0.id,
+                                lr1_0.member_id,
+                                lr1_0.reservation_name\s
                             from
-                                reservation r1_0\s
+                                lazy_reservation lr1_0\s
                             where
-                                r1_0.member_id=?
+                                lr1_0.id=?
                         """)
                 .doesNotContain("left join");
     }
